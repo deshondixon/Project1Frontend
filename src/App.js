@@ -1,7 +1,16 @@
+import Bar from '/Users/deshondixon/projects/revature/project1frontend/src/components/Bar.js';
+import Employee from './components/Employee';
+
 export default function App() {
   return (
     <>
-      <h1 className='text-3xl font-bold underline'>Hello world!</h1>
+      <div>
+        <Bar />
+      </div>
+      <div className='flex justify-center p-12'>
+        {' '}
+        <Employee />
+      </div>
     </>
   );
 }
