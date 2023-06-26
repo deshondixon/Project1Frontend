@@ -1,15 +1,23 @@
-import Bar from '/Users/deshondixon/projects/revature/project1frontend/src/components/Bar.js';
+import React, { useState } from 'react';
+import Bar from './components/Bar';
 import Employee from './components/Employee';
+import Login from './components/Login';
 
 export default function App() {
+  const [selectedMenu, setSelectedMenu] = useState('login');
+
+  const handleMenuSelect = (menuItem) => {
+    setSelectedMenu(menuItem);
+  };
+
   return (
     <>
       <div>
-        <Bar />
+        <Bar onSelect={handleMenuSelect} />
       </div>
       <div className='flex justify-center p-12'>
-        {' '}
-        <Employee />
+        {selectedMenu === 'register' ? <Employee /> : null}
+        {selectedMenu === 'login' ? <Login /> : null}
       </div>
     </>
   );
