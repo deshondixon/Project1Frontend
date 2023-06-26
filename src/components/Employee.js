@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -11,9 +11,11 @@ export default function Employee() {
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [employees, setEmployees] = useState([]);
+  const [position, setPosition] = useState('');
   const handleClick = (e) => {
     e.preventDefault();
-    const employee = { firstName, lastName, username, password };
+    const employee = { firstName, lastName, username, password, position };
     console.log(employee);
     fetch('http://localhost:8080/auth/register', {
       method: 'POST',
@@ -23,6 +25,14 @@ export default function Employee() {
       console.log('employee registered');
     });
   };
+
+  useEffect(() => {
+    fetch('http://localhost:8080/employees')
+      .then((res) => res.json())
+      .then((result) => {
+        setEmployees(result);
+      });
+  }, []);
 
   return (
     <Container>
@@ -70,13 +80,38 @@ export default function Employee() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <TextField
+            id='outlined-basic'
+            label='Position ID'
+            variant='outlined'
+            fullWidth
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+          />
           <Button variant='contained' onClick={handleClick}>
             Register
           </Button>
         </Box>
-        {firstName}
-        {lastName}
-        {username}
+      </Paper>
+
+      <h1>Employees</h1>
+
+      <Paper elevation={3} style={paperStyle}>
+        {employees.map((employee) => (
+          <Paper
+            elevation={6}
+            style={{ margin: '10px', padding: '15px', textAlign: 'left' }}
+            key={employee.id}
+          >
+            id: {employee.id}
+            <br />
+            FirstName: {employee.firstName}
+            <br />
+            LastName: {employee.lastName}
+            <br />
+            PositionID: {employee.position.id}
+          </Paper>
+        ))}
       </Paper>
     </Container>
   );
