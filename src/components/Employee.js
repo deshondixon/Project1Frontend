@@ -14,7 +14,7 @@ export default function Employee() {
     <Container>
       <Paper elevation={3} style={paperStyle}>
         <h1 style={{ color: 'blue' }}>
-          <u>Add Employee</u>{' '}
+          <u>Register Employee</u>{' '}
         </h1>
         <Box
           component='form'
@@ -40,7 +40,7 @@ export default function Employee() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button variant='contained'>Contained</Button>
+          <Button variant='contained'>Register</Button>
         </Box>
         {name}
         {password}
