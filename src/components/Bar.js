@@ -1,59 +1,44 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 
 export default function Bar({ onSelect }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleMenuSelect = (menuItem) => {
     onSelect(menuItem);
-    handleMenuClose();
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
+      <AppBar position='static' sx={{ backgroundColor: 'black' }}>
         <Toolbar>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='menu'
-            sx={{ mr: 2 }}
-            onClick={handleMenuOpen}
+          <Typography
+            variant='h6'
+            component='div'
+            sx={{ flexGrow: 1, textAlign: 'left' }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            Project1: Reimbursement Application
+            Finance Reimbursement System
           </Typography>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
-            <MenuItem onClick={() => handleMenuSelect('register')}>
-              <Link to='/register'>Register</Link>
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuSelect('login')}>
-              <Link to='/login'>Login</Link>
-            </MenuItem>
-          </Menu>
+          <MenuItem onClick={() => handleMenuSelect('register')}>
+            Register
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuSelect('login')}>Login</MenuItem>
+          <MenuItem onClick={() => handleMenuSelect('reimbursements')}>
+            Reimbursements
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuSelect('status')}>
+            Ticket Status
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuSelect('UpdateStatus')}>
+            Update Ticket
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuSelect('approved')}>
+            My Approved Tickets
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuSelect('pending')}>
+            My Pending Tickets
+          </MenuItem>
         </Toolbar>
       </AppBar>
     </Box>
