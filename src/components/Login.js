@@ -1,62 +1,71 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
 export default function Login() {
-  const paperStyle = { padding: '50px 20px', width: 300, margin: '20px auto' };
+  const paperStyle = { padding: '50px 20px', width: 600, margin: '20px auto' };
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginStatus, setLoginStatus] = useState(null);
 
-  const handleClick = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    const credentials = { username, password };
-    console.log(credentials);
+    const user = { username, password };
+    console.log(user);
     fetch('http://localhost:8080/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(user),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Logged in successfully:', data);
+        setLoginStatus('Login successful');
+      })
+      .catch((error) => {
+        console.error('Login failed:', error);
+        setLoginStatus('Login failed');
+      });
   };
 
   return (
     <Container>
-      <Paper elevation={20} style={paperStyle}>
-        <div>
-          <h2>Login</h2>
-          <form>
-            <TextField
-              label='Username'
-              placeholder='Enter username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              fullWidth
-              required
-            />
-            <TextField
-              label='Password'
-              placeholder='Enter password'
-              type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
-              required
-            />
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              onClick={handleClick}
-              fullWidth
-            >
-              Login
-            </Button>
-          </form>
-        </div>
+      <Paper elevation={3} style={paperStyle}>
+        <h1 style={{ color: 'blue' }}>
+          <u>Login</u>{' '}
+        </h1>
+        <Box
+          component='form'
+          sx={{
+            '& > :not(style)': { m: 1 },
+          }}
+          noValidate
+          autoComplete='off'
+        >
+          <TextField
+            id='outlined-basic'
+            label='Username'
+            variant='outlined'
+            fullWidth
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            id='outlined-basic'
+            label='Password'
+            variant='outlined'
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button variant='contained' onClick={handleLogin}>
+            Login
+          </Button>
+          {loginStatus && <p>{loginStatus}</p>}
+        </Box>
       </Paper>
     </Container>
   );

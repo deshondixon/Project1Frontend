@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   Input,
   Spacer,
@@ -28,7 +27,7 @@ export default function Register() {
       .then((response) => {
         if (response.ok) {
           setSubmissionStatus(
-            `${employee.username} ${employee.lastName} was successfully registered!`
+            `${employee.username} was successfully registered!`
           );
         } else {
           throw new Error('User is already registered');
@@ -40,16 +39,17 @@ export default function Register() {
       });
   };
 
-  const usernameIsRegistered = () => {
-    return username === 'username';
-    // I STILL NEED TO FINISH THIS!!
-  };
-
   return (
     <>
       <Grid gap={2}>
         <Container>
-          <Card>
+          <Card
+            style={{
+              padding: '2rem',
+              paddingLeft: '5rem',
+              paddingRight: '5rem',
+            }}
+          >
             <Card.Body>
               <Text
                 h1
@@ -61,8 +61,7 @@ export default function Register() {
               >
                 Create Account
               </Text>
-              <Spacer />
-              <Spacer />
+              <Spacer y={2} />
               <Input
                 auto
                 bordered
@@ -73,7 +72,7 @@ export default function Register() {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
-              <Spacer />
+              <Spacer y={2} />
               <Input
                 auto
                 bordered
@@ -84,7 +83,7 @@ export default function Register() {
                 onChange={(e) => setLastName(e.target.value)}
                 required
               />
-              <Spacer />
+              <Spacer y={2} />
               <Input
                 auto
                 bordered
@@ -95,8 +94,10 @@ export default function Register() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
-              <Spacer />
+              <Spacer y={2} />
               <Input.Password
+                auto
+                bordered
                 labelPlaceholder='Password'
                 placeholder='Enter password'
                 value={password}
@@ -106,8 +107,10 @@ export default function Register() {
               <Button onClick={handleClick} auto color='success' flat light>
                 Register
               </Button>
+              <Spacer />
 
               {submissionStatus && <p>{submissionStatus}</p>}
+              <Spacer y={1} />
             </Card.Body>
           </Card>
         </Container>
