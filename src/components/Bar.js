@@ -1,8 +1,7 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
+import React from 'react';
+import { Navbar, Button, Link, Text } from '@nextui-org/react';
+import { Box } from './Box.js';
+import '/Users/deshondixon/projects/revature/project1frontend/src/App.css';
 
 export default function Bar({ onSelect }) {
   const handleMenuSelect = (menuItem) => {
@@ -10,37 +9,67 @@ export default function Bar({ onSelect }) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static' sx={{ backgroundColor: 'black' }}>
-        <Toolbar>
-          <Typography
-            variant='h6'
-            component='div'
-            sx={{ flexGrow: 1, textAlign: 'left' }}
+    <Box
+      css={{
+        maxW: '100%',
+      }}
+    >
+      <Navbar isBordered>
+        <Navbar.Brand>
+          <Text
+            h1
+            size={20}
+            css={{
+              textGradient: '45deg, $yellow600 -20%, $red600 100%',
+            }}
+            weight='bold'
           >
             Finance Reimbursement System
-          </Typography>
-          <MenuItem onClick={() => handleMenuSelect('register')}>
-            Register
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('login')}>Login</MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('reimbursements')}>
-            Reimbursements
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('status')}>
-            Ticket Search
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('UpdateStatus')}>
-            Update Ticket
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('approved')}>
-            My Approved Tickets
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('pending')}>
-            My Pending Tickets
-          </MenuItem>
-        </Toolbar>
-      </AppBar>
+          </Text>
+        </Navbar.Brand>
+        <Navbar.Content hideIn='xs'>
+          <div className='flex'>
+            <Button light auto onClick={() => handleMenuSelect('register')}>
+              Register
+            </Button>
+            <Button
+              light
+              auto
+              onClick={() => handleMenuSelect('reimbursements')}
+            >
+              Reimbursements
+            </Button>
+            <Button light auto onClick={() => handleMenuSelect('status')}>
+              Ticket Search
+            </Button>
+            <Button light auto onClick={() => handleMenuSelect('UpdateStatus')}>
+              Update Ticket
+            </Button>
+            <Button light auto onClick={() => handleMenuSelect('approved')}>
+              My Approved Tickets
+            </Button>
+            <Button light auto onClick={() => handleMenuSelect('pending')}>
+              My Pending Tickets
+            </Button>
+          </div>
+        </Navbar.Content>
+
+        <Navbar.Content>
+          <Button
+            bordered
+            color='primary'
+            auto
+            as={Link}
+            onClick={() => handleMenuSelect('login')}
+            css={{
+              padding: '10px 20px',
+              fontSize: '18px',
+            }}
+          >
+            Login
+          </Button>
+        </Navbar.Content>
+      </Navbar>
     </Box>
   );
 }

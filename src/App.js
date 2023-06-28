@@ -7,7 +7,7 @@ import Status from './components/Status';
 import UpdateStatus from './components/UpdateStatus';
 import Approved from './components/Approved';
 import Pending from './components/Pending';
-// import './App.css';
+import './App.css';
 
 export default function App() {
   const [selectedMenu, setSelectedMenu] = useState('login');
