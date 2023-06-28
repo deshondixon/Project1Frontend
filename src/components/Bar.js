@@ -27,9 +27,7 @@ export default function Bar({ onSelect }) {
           <MenuItem onClick={() => handleMenuSelect('reimbursements')}>
             Reimbursements
           </MenuItem>
-          <MenuItem onClick={() => handleMenuSelect('status')}>
-            Ticket Search
-          </MenuItem>
+
           <MenuItem onClick={() => handleMenuSelect('UpdateStatus')}>
             Update Ticket
           </MenuItem>
