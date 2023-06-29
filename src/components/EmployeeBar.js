@@ -3,7 +3,7 @@ import { Navbar, Button, Link, Text } from '@nextui-org/react';
 import { Box } from './Box.js';
 import '/Users/deshondixon/projects/revature/project1frontend/src/App.css';
 
-export default function Bar({ onSelect }) {
+export default function EmployeeBar({ onSelect }) {
   const handleMenuSelect = (menuItem) => {
     onSelect(menuItem);
   };
@@ -18,13 +18,13 @@ export default function Bar({ onSelect }) {
         <Navbar.Brand>
           <Text
             h1
-            size={20}
+            size={30}
             css={{
               textGradient: '45deg, $yellow600 -20%, $red600 100%',
             }}
             weight='bold'
           >
-            Finance Reimbursement System
+            Employee
           </Text>
         </Navbar.Brand>
         <Navbar.Content hideIn='xs'>
@@ -66,7 +66,7 @@ export default function Bar({ onSelect }) {
               fontSize: '18px',
             }}
           >
-            Login
+            HOME
           </Button>
         </Navbar.Content>
       </Navbar>

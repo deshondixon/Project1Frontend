@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Text, Container, Grid, Card, Input, Spacer } from '@nextui-org/react';
 
 export default function Login() {
-  const paperStyle = { padding: '50px 20px', width: 300, margin: '20px auto' };
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -23,6 +22,11 @@ export default function Login() {
         console.log(data);
         console.log(data.accessToken);
         console.log(parseJwt(data.accessToken));
+        if (parseJwt(data.accessToken).Position === 'Finance Manager') {
+          navigate('/finance-manager');
+        } else {
+          navigate('/employee');
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -44,40 +48,66 @@ export default function Login() {
   }
 
   return (
-    <Container>
-      <Paper elevation={20} style={paperStyle}>
-        <div>
-          <h2>Login</h2>
-          <form>
-            <TextField
-              label='Username'
-              placeholder='Enter username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              fullWidth
-              required
-            />
-            <TextField
-              label='Password'
-              placeholder='Enter password'
-              type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
-              required
-            />
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              onClick={handleClick}
-              fullWidth
+    <>
+      <Spacer y={2} />
+
+      <Grid.Container gap={2} justify='center'>
+        <Grid>
+          <Spacer y={2} />
+          <Container maxWidth='sm'>
+            <Card
+              style={{
+                padding: '2rem',
+                paddingLeft: '5rem',
+                paddingRight: '5rem',
+              }}
             >
-              Login
-            </Button>
-          </form>
-        </div>
-      </Paper>
-    </Container>
+              <Card.Body>
+                <Text
+                  h1
+                  size={20}
+                  css={{
+                    textGradient: '45deg, $yellow600 -20%, $red600 100%',
+                  }}
+                  weight='bold'
+                >
+                  Login
+                </Text>
+                <Spacer y={2} />
+                <Input
+                  auto
+                  bordered
+                  color='secondary'
+                  labelPlaceholder='Username'
+                  placeholder='Enter username'
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+                <Spacer y={2} />
+                <Input.Password
+                  auto
+                  bordered
+                  labelPlaceholder='Password'
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <Spacer y={2} />
+                <Button
+                  type='submit'
+                  variant='contained'
+                  color='primary'
+                  onClick={handleClick}
+                >
+                  Login
+                </Button>
+              </Card.Body>
+            </Card>
+          </Container>
+        </Grid>
+      </Grid.Container>
+    </>
   );
 }

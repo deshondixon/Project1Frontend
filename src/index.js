@@ -1,9 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createTheme, NextUIProvider } from '@nextui-org/react';
 import './index.css';
 import App from './App';
+import FinanceManager from './components/FinanceManager';
+import Employee from './components/Employee';
 import reportWebVitals from './reportWebVitals';
-import { createTheme, NextUIProvider } from '@nextui-org/react';
+import { createRoot } from 'react-dom/client';
 
 const theme = createTheme({
   type: 'dark',
@@ -16,15 +19,20 @@ const theme = createTheme({
   },
 });
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <>
-    <React.StrictMode basename='/project1frontend'>
-      <NextUIProvider theme={theme}>
-        <App />
-      </NextUIProvider>
+const rootElement = document.getElementById('root');
+
+createRoot(rootElement).render(
+  <NextUIProvider theme={theme}>
+    <React.StrictMode>
+      <Router>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path='/finance-manager' element={<FinanceManager />} />
+          <Route path='/employee' element={<Employee />} />
+        </Routes>
+      </Router>
     </React.StrictMode>
-  </>
+  </NextUIProvider>
 );
 
 reportWebVitals();
