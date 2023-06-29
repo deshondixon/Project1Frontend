@@ -8,6 +8,7 @@ import {
   Card,
   Table,
 } from '@nextui-org/react';
+import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 
 export default function Status() {
@@ -92,7 +93,7 @@ export default function Status() {
                   variant='contained'
                   color='primary'
                   onClick={handleSearch}
-                  fullWidth
+                  endIcon={<SearchIcon />}
                 >
                   Search
                 </Button>

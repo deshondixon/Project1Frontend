@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Spacer, Text, Container, Grid, Card } from '@nextui-org/react';
 import { Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function Reimbursement() {
   const [description, setDescription] = useState('');
@@ -86,7 +87,7 @@ export default function Reimbursement() {
                   variant='contained'
                   color='primary'
                   onClick={handleClick}
-                  fullWidth
+                  endIcon={<SendIcon />}
                 >
                   Submit
                 </Button>

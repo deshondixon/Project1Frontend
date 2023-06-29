@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { Text, Container, Grid, Card, Input, Spacer } from '@nextui-org/react';
+import LoginIcon from '@mui/icons-material/Login';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 export default function App() {
   const [username, setUsername] = useState('');
@@ -114,23 +116,26 @@ export default function App() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <Spacer y={2} />
+                <Spacer y={1} />
                 <Button
                   type='submit'
                   variant='contained'
                   color='primary'
                   onClick={handleClick}
+                  endIcon={<LoginIcon />}
                 >
                   Login
                 </Button>
-                <Spacer y={1} />
+                <Spacer y={2} />
 
                 <h3>New here? Sign up!</h3>
+                <Spacer />
                 <Button
                   type='button'
                   variant='contained'
-                  color='primary'
+                  color='secondary'
                   onClick={handleRegisterClick}
+                  endIcon={<HowToRegIcon />}
                 >
                   Register
                 </Button>

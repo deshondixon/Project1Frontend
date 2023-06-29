@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DoneIcon from '@mui/icons-material/Done';
 import { Table, Spacer, Text, Container } from '@nextui-org/react';
 
 export default function UpdateStatus() {
@@ -135,6 +137,7 @@ export default function UpdateStatus() {
                         size='small'
                         color='success'
                         onClick={() => handleApprove(item.id)}
+                        endIcon={<DoneIcon />}
                       >
                         Approve
                       </Button>
@@ -144,6 +147,7 @@ export default function UpdateStatus() {
                         size='small'
                         color='error'
                         onClick={() => handleDeny(item.id)}
+                        endIcon={<DeleteIcon />}
                       >
                         Deny
                       </Button>
