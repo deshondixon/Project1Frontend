@@ -64,7 +64,7 @@ export default function App() {
               h1
               size={60}
               css={{
-                alignContent: 'center',
+                textAlign: 'center',
                 textGradient: '45deg, $yellow600 -20%, $red600 100%',
               }}
               weight='bold'
@@ -84,8 +84,9 @@ export default function App() {
               <Card.Body>
                 <Text
                   h1
-                  size={20}
+                  size={30}
                   css={{
+                    textAlign: 'center',
                     textGradient: '45deg, $yellow600 -20%, $red600 100%',
                   }}
                   weight='bold'

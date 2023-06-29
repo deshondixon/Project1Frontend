@@ -105,6 +105,7 @@ export default function UpdateStatus() {
       >
         Pending Reimbursements
       </Text>
+      <Spacer />
       <Table
         aria-label='Pending Reimbursements Table'
         css={{
@@ -165,6 +166,7 @@ export default function UpdateStatus() {
       >
         Approved Reimbursements
       </Text>
+      <Spacer />
       <Table
         aria-label='Approved Reimbursements Table'
         css={{
