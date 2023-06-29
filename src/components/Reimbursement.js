@@ -73,7 +73,7 @@ export default function Reimbursement() {
                   bordered
                   initialValue='123'
                   color='secondary'
-                  labelPlaceholder='Enter Amount'
+                  labelPlaceholder='Enter Number'
                   placeholder='Enter Expense Amount'
                   type='number'
                   value={expenseAmount}

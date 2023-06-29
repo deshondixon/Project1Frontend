@@ -14,7 +14,7 @@ export default function EmployeeBar({ onSelect }) {
         maxW: '100%',
       }}
     >
-      <Navbar isBordered>
+      <Navbar isBordered variant='floating'>
         <Navbar.Brand>
           <Text
             h1
@@ -27,14 +27,14 @@ export default function EmployeeBar({ onSelect }) {
             Employee
           </Text>
         </Navbar.Brand>
-        <Navbar.Content hideIn='xs'>
+        <Navbar.Content enableCursorHighlight variant='underline'>
           <div className='flex'>
             <Button
               light
               auto
               onClick={() => handleMenuSelect('reimbursements')}
             >
-              Reimbursements
+              Submit a Ticket
             </Button>
             <Button light auto onClick={() => handleMenuSelect('status')}>
               Ticket Search
@@ -48,10 +48,9 @@ export default function EmployeeBar({ onSelect }) {
           </div>
         </Navbar.Content>
 
-        <Navbar.Content>
+        <Navbar.Content enableCursorHighlight variant='underline'>
           <Button
             bordered
-            color='primary'
             auto
             as={Link}
             onClick={() => handleMenuSelect('login')}

@@ -14,7 +14,7 @@ export default function FinanceManagerBar({ onSelect }) {
         maxW: '100%',
       }}
     >
-      <Navbar isBordered>
+      <Navbar isBordered variant='floating'>
         <Navbar.Brand>
           <Text
             h1
@@ -27,7 +27,7 @@ export default function FinanceManagerBar({ onSelect }) {
             Finance Manager
           </Text>
         </Navbar.Brand>
-        <Navbar.Content hideIn='xs'>
+        <Navbar.Content enableCursorHighlight variant='underline'>
           <div className='flex'>
             <Button auto onClick={() => handleMenuSelect('UpdateStatus')}>
               Ticket Manager
@@ -35,7 +35,7 @@ export default function FinanceManagerBar({ onSelect }) {
           </div>
         </Navbar.Content>
 
-        <Navbar.Content>
+        <Navbar.Content enableCursorHighlight variant='underline'>
           <Button
             bordered
             color='primary'

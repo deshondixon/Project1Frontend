@@ -1,7 +1,6 @@
 import * as React from 'react';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { Table, Spacer, Text } from '@nextui-org/react';
+import { Table, Spacer, Text, Container } from '@nextui-org/react';
 
 export default function UpdateStatus() {
   const [pendingReimbursements, setPendingReimbursements] = React.useState([]);
@@ -124,7 +123,7 @@ export default function UpdateStatus() {
               <Table.Cell>{item.description}</Table.Cell>
               <Table.Cell>{item.expenseAmount}</Table.Cell>
               <Table.Cell>
-                <Text color='warning'>{item.status}</Text>
+                <Text color='#ff0000'>{item.status}</Text>
               </Table.Cell>
               <Table.Cell>
                 {item.status !== 'Approved' && (

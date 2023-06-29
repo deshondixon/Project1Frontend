@@ -1,15 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React, { useEffect } from 'react';
+import { Table, Spacer, Text, Container } from '@nextui-org/react';
 
 export default function Approved() {
-  const paperStyle = { padding: '50px 20px', width: 600, margin: '20px auto' };
-  const [approvedTickets, setApprovedTickets] = useState([]);
+  const [approvedReimbursements, setApprovedReimbursements] = React.useState(
+    []
+  );
+
+  const columns2 = [
+    {
+      key: 'id',
+      label: 'Ticket Number',
+    },
+    {
+      key: 'description',
+      label: 'Description',
+    },
+    {
+      key: 'expenseAmount',
+      label: 'Amount',
+    },
+    {
+      key: 'status',
+      label: 'Status',
+    },
+  ];
 
   const fetchApprovedTickets = () => {
     fetch('http://localhost:8080/reimbursements')
@@ -18,7 +32,7 @@ export default function Approved() {
         const approved = data.filter(
           (reimbursement) => reimbursement.status.toLowerCase() === 'approved'
         );
-        setApprovedTickets(approved);
+        setApprovedReimbursements(approved);
       })
       .catch((error) => console.log(error));
   };
@@ -29,30 +43,42 @@ export default function Approved() {
 
   return (
     <Container>
-      <Paper elevation={20} style={paperStyle}>
-        <div>
-          {approvedTickets.map((reimbursement) => (
-            <Accordion key={reimbursement.id}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel${reimbursement.id}-content`}
-                id={`panel${reimbursement.id}-header`}
-              >
-                <Typography>Ticket Number: {reimbursement.id}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  Description: {reimbursement.description}
-                  <br />
-                  Status: {reimbursement.status}
-                  <br />
-                  Expense Amount: {reimbursement.expenseAmount}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </div>
-      </Paper>
+      <Text
+        h1
+        size={30}
+        css={{
+          textGradient: '45deg, $yellow600 -20%, $red600 100%',
+        }}
+        weight='bold'
+      >
+        Approved Reimbursements
+      </Text>
+      <Spacer y={1} />
+      <Table
+        aria-label='Approved Reimbursements Table'
+        css={{
+          height: 'auto',
+          minWidth: '100%',
+        }}
+      >
+        <Table.Header columns={columns2}>
+          {(column) => (
+            <Table.Column key={column.key}>{column.label}</Table.Column>
+          )}
+        </Table.Header>
+        <Table.Body items={approvedReimbursements}>
+          {(item) => (
+            <Table.Row key={item.id}>
+              <Table.Cell>{item.id}</Table.Cell>
+              <Table.Cell>{item.description}</Table.Cell>
+              <Table.Cell>{item.expenseAmount}</Table.Cell>
+              <Table.Cell>
+                <Text color='success'>{item.status}</Text>
+              </Table.Cell>
+            </Table.Row>
+          )}
+        </Table.Body>
+      </Table>
     </Container>
   );
 }
