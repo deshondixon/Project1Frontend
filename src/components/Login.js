@@ -22,6 +22,8 @@ export default function Login() {
         console.log(data);
         console.log(data.accessToken);
         console.log(parseJwt(data.accessToken));
+        document.cookie = data.accessToken;
+        console.log(document.cookie);
         if (parseJwt(data.accessToken).Position === 'Finance Manager') {
           navigate('/finance-manager');
         } else {

@@ -22,6 +22,8 @@ export default function App() {
         console.log(data);
         console.log(data.accessToken);
         console.log(parseJwt(data.accessToken));
+        document.cookie = data.accessToken;
+        console.log(document.cookie);
         if (parseJwt(data.accessToken).Position === 'Finance Manager') {
           navigate('/finance-manager');
         } else {
@@ -29,6 +31,10 @@ export default function App() {
         }
       })
       .catch((error) => console.log(error));
+  };
+
+  const handleRegisterClick = () => {
+    navigate('/register');
   };
 
   function parseJwt(token) {
@@ -115,6 +121,17 @@ export default function App() {
                   onClick={handleClick}
                 >
                   Login
+                </Button>
+                <Spacer y={1} />
+
+                <h3>New here? Sign up!</h3>
+                <Button
+                  type='button'
+                  variant='contained'
+                  color='primary'
+                  onClick={handleRegisterClick}
+                >
+                  Register
                 </Button>
               </Card.Body>
             </Card>

@@ -8,6 +8,7 @@ import {
   Card,
   Button,
 } from '@nextui-org/react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [firstName, setFirstName] = useState('');
@@ -15,6 +16,7 @@ export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [submissionStatus, setSubmissionStatus] = useState('');
+  const navigate = useNavigate();
 
   const handleClick = () => {
     const employee = { firstName, lastName, username, password };
@@ -27,7 +29,8 @@ export default function Register() {
       .then((response) => {
         if (response.ok) {
           setSubmissionStatus(
-            `${employee.username} was successfully registered!`
+            `${employee.username} was successfully registered!`,
+            navigate('/')
           );
         } else {
           throw new Error('User is already registered');
@@ -43,6 +46,18 @@ export default function Register() {
     <>
       <Grid gap={2}>
         <Container>
+          <Spacer />
+          <Text
+            h1
+            size={30}
+            css={{
+              textGradient: '45deg, $yellow600 -20%, $red600 100%',
+            }}
+            weight='bold'
+          >
+            Registration
+          </Text>
+          <Spacer />
           <Card
             style={{
               padding: '2rem',

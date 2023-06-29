@@ -7,6 +7,7 @@ import FinanceManager from './components/FinanceManager';
 import Employee from './components/Employee';
 import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
+import Register from './components/Register';
 
 const theme = createTheme({
   type: 'dark',
@@ -29,6 +30,7 @@ createRoot(rootElement).render(
           <Route path='/' element={<App />} />
           <Route path='/finance-manager' element={<FinanceManager />} />
           <Route path='/employee' element={<Employee />} />
+          <Route path='/register' element={<Register />} />
         </Routes>
       </Router>
     </React.StrictMode>

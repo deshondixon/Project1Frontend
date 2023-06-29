@@ -29,11 +29,8 @@ export default function FinanceManagerBar({ onSelect }) {
         </Navbar.Brand>
         <Navbar.Content hideIn='xs'>
           <div className='flex'>
-            <Button light auto onClick={() => handleMenuSelect('status')}>
-              Ticket Search
-            </Button>
-            <Button light auto onClick={() => handleMenuSelect('UpdateStatus')}>
-              Update Ticket
+            <Button auto onClick={() => handleMenuSelect('UpdateStatus')}>
+              Ticket Manager
             </Button>
           </div>
         </Navbar.Content>
