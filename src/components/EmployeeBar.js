@@ -29,9 +29,6 @@ export default function EmployeeBar({ onSelect }) {
         </Navbar.Brand>
         <Navbar.Content hideIn='xs'>
           <div className='flex'>
-            <Button light auto onClick={() => handleMenuSelect('register')}>
-              Register
-            </Button>
             <Button
               light
               auto
@@ -41,9 +38,6 @@ export default function EmployeeBar({ onSelect }) {
             </Button>
             <Button light auto onClick={() => handleMenuSelect('status')}>
               Ticket Search
-            </Button>
-            <Button light auto onClick={() => handleMenuSelect('UpdateStatus')}>
-              Update Ticket
             </Button>
             <Button light auto onClick={() => handleMenuSelect('approved')}>
               My Approved Tickets

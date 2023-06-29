@@ -10,7 +10,7 @@ import Pending from '/Users/deshondixon/projects/revature/project1frontend/src/c
 import '/Users/deshondixon/projects/revature/project1frontend/src/App.css';
 
 export default function Employee() {
-  const [selectedMenu, setSelectedMenu] = useState('login');
+  const [selectedMenu, setSelectedMenu] = useState('reimbursements');
 
   const handleMenuSelect = (menuItem) => {
     setSelectedMenu(menuItem);
