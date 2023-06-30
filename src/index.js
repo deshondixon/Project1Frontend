@@ -16,6 +16,7 @@ const theme = createTheme({
       primary: '#4ADE7B',
       secondary: '#F9CB80',
       error: '#FCC5D8',
+      // background: '#D80073',
     },
   },
 });

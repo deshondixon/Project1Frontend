@@ -8,6 +8,7 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 export default function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -32,7 +33,10 @@ export default function App() {
           navigate('/employee');
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage('Invalid username or password. Please try again.');
+      });
   };
 
   const handleRegisterClick = () => {
@@ -84,6 +88,12 @@ export default function App() {
               }}
             >
               <Card.Body>
+                {errorMessage && (
+                  <Text color='#ff0000' align='center'>
+                    {errorMessage}
+                  </Text>
+                )}
+                <Spacer y={2} />
                 <Text
                   h1
                   size={30}

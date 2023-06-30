@@ -14,7 +14,14 @@ export default function FinanceManagerBar({ onSelect }) {
         maxW: '100%',
       }}
     >
-      <Navbar isBordered variant='floating'>
+      <Navbar
+        isBordered
+        variant='floating'
+        // css={{
+        //   $$navbarBackgroundColor: 'transparent',
+        //   $$navbarBlurBackgroundColor: 'transparent',
+        // }}
+      >
         <Navbar.Brand>
           <Text
             h1

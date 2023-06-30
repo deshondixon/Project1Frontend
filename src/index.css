@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: linear-gradient(to right, #eaff0107 0%, #0800237f 30%, #0d002b8d 50%, #0800237f 70%, #40010148 100%),
+              linear-gradient(to bottom, #00000007 0%, #0000007f 30%, #0000008d 50%, #0000007f 70%, #00000048 100%);
+  background-size: cover;
+  background-attachment: fixed;
+  backdrop-filter: blur(20px); 
+}
