@@ -21,7 +21,7 @@ export default function Register() {
         employee
       );
 
-      if (response.status === 200) {
+      if (response.status >= 200 && response.status < 300) {
         setSubmissionStatus(
           `${employee.username} was successfully registered!`
         );

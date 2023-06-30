@@ -44,11 +44,7 @@ export default function Status() {
       const response = await axios.get(searchUrl);
       const data = response.data;
       console.log(data);
-      if (data.length > 0) {
-        setApprovedReimbursements(data);
-      } else {
-        setApprovedReimbursements([]);
-      }
+      setApprovedReimbursements(data);
     } catch (error) {
       console.log(error);
     }

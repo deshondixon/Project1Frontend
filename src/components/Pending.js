@@ -26,7 +26,12 @@ export default function Pending() {
 
   const fetchPendingTickets = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/reimbursements');
+      const accessToken = localStorage.getItem('accessToken');
+      const response = await axios.get('http://localhost:8080/reimbursements', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       const data = response.data;
       const pending = data.filter(
         (reimbursement) => reimbursement.status.toLowerCase() === 'pending'

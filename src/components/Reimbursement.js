@@ -9,19 +9,24 @@ export default function Reimbursement() {
   const [expenseAmount, setExpenseAmount] = useState('');
   const [submissionStatus, setSubmissionStatus] = useState('');
   const [submittedReimbursement, setSubmittedReimbursement] = useState(null);
+  const [accessToken, setAccessToken] = useState('');
 
   const handleClick = async (e) => {
     e.preventDefault();
     const reimbursement = {
       description,
       expenseAmount,
-      status: 'Pending',
     };
 
     try {
       const response = await axios.post(
         'http://localhost:8080/reimbursements',
-        reimbursement
+        reimbursement,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
       const data = response.data;
       console.log(data);
@@ -31,6 +36,11 @@ export default function Reimbursement() {
       console.log(error);
     }
   };
+
+  React.useEffect(() => {
+    const storedAccessToken = localStorage.getItem('accessToken');
+    setAccessToken(storedAccessToken);
+  }, []);
 
   return (
     <>

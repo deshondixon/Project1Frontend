@@ -28,7 +28,12 @@ export default function Approved() {
 
   const fetchApprovedTickets = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/reimbursements');
+      const accessToken = localStorage.getItem('accessToken');
+      const response = await axios.get('http://localhost:8080/reimbursements', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       const data = response.data;
       const approved = data.filter(
         (reimbursement) => reimbursement.status.toLowerCase() === 'approved'

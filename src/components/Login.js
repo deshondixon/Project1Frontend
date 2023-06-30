@@ -13,7 +13,7 @@ export default function Login() {
   const handleClick = async (e) => {
     e.preventDefault();
     const credentials = { username, password };
-    console.log(credentials);
+
     try {
       const response = await axios.post(
         'http://localhost:8080/auth/login',
@@ -23,8 +23,9 @@ export default function Login() {
       console.log(data);
       console.log(data.accessToken);
       console.log(parseJwt(data.accessToken));
-      document.cookie = data.accessToken;
-      console.log(document.cookie);
+
+      localStorage.setItem('accessToken', data.accessToken);
+
       if (parseJwt(data.accessToken).Position === 'Finance Manager') {
         navigate('/finance-manager');
       } else {

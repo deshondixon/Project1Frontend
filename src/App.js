@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import { Text, Container, Grid, Card, Input, Spacer } from '@nextui-org/react';
 import LoginIcon from '@mui/icons-material/Login';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function App() {
   const [username, setUsername] = useState('');
@@ -16,17 +18,16 @@ export default function App() {
     const credentials = { username, password };
     console.log(credentials);
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(credentials),
-      });
-      const data = await response.json();
+      const response = await axios.post(
+        'http://localhost:8080/auth/login',
+        credentials
+      );
+      const data = response.data;
       console.log(data);
       console.log(data.accessToken);
       console.log(parseJwt(data.accessToken));
-      document.cookie = data.accessToken;
-      console.log(document.cookie);
+      localStorage.setItem('accessToken', data.accessToken); // Store access token in localStorage
+      console.log(localStorage.getItem('accessToken'));
       if (parseJwt(data.accessToken).Position === 'Finance Manager') {
         navigate('/finance-manager');
       } else {
@@ -137,10 +138,10 @@ export default function App() {
                 <h3>New here? Sign up!</h3>
                 <Spacer />
                 <Button
-                  type='button'
+                  component={Link}
+                  to='/register'
                   variant='contained'
                   color='secondary'
-                  onClick={handleRegisterClick}
                   endIcon={<HowToRegIcon />}
                 >
                   Register
