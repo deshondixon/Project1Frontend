@@ -11,32 +11,31 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     const credentials = { username, password };
     console.log(credentials);
-    fetch('http://localhost:8080/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        console.log(data.accessToken);
-        console.log(parseJwt(data.accessToken));
-        document.cookie = data.accessToken;
-        console.log(document.cookie);
-        if (parseJwt(data.accessToken).Position === 'Finance Manager') {
-          navigate('/finance-manager');
-        } else {
-          navigate('/employee');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setErrorMessage('Invalid username or password. Please try again.');
+    try {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
       });
+      const data = await response.json();
+      console.log(data);
+      console.log(data.accessToken);
+      console.log(parseJwt(data.accessToken));
+      document.cookie = data.accessToken;
+      console.log(document.cookie);
+      if (parseJwt(data.accessToken).Position === 'Finance Manager') {
+        navigate('/finance-manager');
+      } else {
+        navigate('/employee');
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Invalid username or password. Please try again.');
+    }
   };
 
   const handleRegisterClick = () => {
@@ -63,19 +62,19 @@ export default function App() {
     <>
       <Grid.Container gap={2} justify='center'>
         <Grid>
-          <Container>
-            <Text
-              h1
-              size={60}
-              css={{
-                textAlign: 'center',
-                textGradient: '45deg, $yellow600 -20%, $red600 100%',
-              }}
-              weight='bold'
-            >
-              Welcome to the CMS!
-            </Text>
-          </Container>
+          <Spacer y={2} />
+          <Text
+            h1
+            size={50}
+            css={{
+              textAlign: 'center',
+              textGradient: '45deg, $yellow600 -20%, $red600 100%',
+            }}
+            weight='bold'
+          >
+            Welcome to the CMS!
+          </Text>
+
           <Spacer y={2} />
           <Container maxWidth='sm'>
             <Card
@@ -99,7 +98,6 @@ export default function App() {
                     textAlign: 'center',
                     textGradient: '45deg, $yellow600 -20%, $red600 100%',
                   }}
-                  weight='bold'
                 >
                   Login
                 </Text>

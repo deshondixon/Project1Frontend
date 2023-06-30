@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table, Spacer, Text, Container } from '@nextui-org/react';
+import axios from 'axios';
 
 export default function Approved() {
   const [approvedReimbursements, setApprovedReimbursements] = React.useState(
@@ -25,16 +26,17 @@ export default function Approved() {
     },
   ];
 
-  const fetchApprovedTickets = () => {
-    fetch('http://localhost:8080/reimbursements')
-      .then((res) => res.json())
-      .then((data) => {
-        const approved = data.filter(
-          (reimbursement) => reimbursement.status.toLowerCase() === 'approved'
-        );
-        setApprovedReimbursements(approved);
-      })
-      .catch((error) => console.log(error));
+  const fetchApprovedTickets = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/reimbursements');
+      const data = response.data;
+      const approved = data.filter(
+        (reimbursement) => reimbursement.status.toLowerCase() === 'approved'
+      );
+      setApprovedReimbursements(approved);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

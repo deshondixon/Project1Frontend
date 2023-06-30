@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { Text, Container, Grid, Card, Input, Spacer } from '@nextui-org/react';
+import axios from 'axios';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -9,32 +10,30 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     const credentials = { username, password };
     console.log(credentials);
-    fetch('http://localhost:8080/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        console.log(data.accessToken);
-        console.log(parseJwt(data.accessToken));
-        document.cookie = data.accessToken;
-        console.log(document.cookie);
-        if (parseJwt(data.accessToken).Position === 'Finance Manager') {
-          navigate('/finance-manager');
-        } else {
-          navigate('/employee');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setErrorMessage('Invalid username or password. Please try again.');
-      });
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/auth/login',
+        credentials
+      );
+      const data = response.data;
+      console.log(data);
+      console.log(data.accessToken);
+      console.log(parseJwt(data.accessToken));
+      document.cookie = data.accessToken;
+      console.log(document.cookie);
+      if (parseJwt(data.accessToken).Position === 'Finance Manager') {
+        navigate('/finance-manager');
+      } else {
+        navigate('/employee');
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('Invalid username or password. Please try again.');
+    }
   };
 
   function parseJwt(token) {

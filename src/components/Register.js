@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, Spacer, Text, Container, Grid, Card } from '@nextui-org/react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Register() {
   const [firstName, setFirstName] = useState('');
@@ -11,28 +12,27 @@ export default function Register() {
   const [submissionStatus, setSubmissionStatus] = useState('');
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const employee = { firstName, lastName, username, password };
 
-    fetch('http://localhost:8080/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(employee),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setSubmissionStatus(
-            `${employee.username} was successfully registered!`
-          );
-          navigate('/');
-        } else {
-          throw new Error('User is already registered');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setSubmissionStatus('User is already registered');
-      });
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/auth/register',
+        employee
+      );
+
+      if (response.status === 200) {
+        setSubmissionStatus(
+          `${employee.username} was successfully registered!`
+        );
+        navigate('/');
+      } else {
+        throw new Error('User is already registered');
+      }
+    } catch (error) {
+      console.log(error);
+      setSubmissionStatus('User is already registered');
+    }
   };
 
   return (

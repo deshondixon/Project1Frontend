@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
 import { Table, Spacer, Text, Container } from '@nextui-org/react';
+import axios from 'axios';
 
 export default function UpdateStatus() {
   const [pendingReimbursements, setPendingReimbursements] = React.useState([]);
@@ -48,47 +49,40 @@ export default function UpdateStatus() {
     },
   ];
 
-  const handleApprove = (id) => {
+  const handleApprove = async (id) => {
     const updateUrl = `http://localhost:8080/reimbursements/${id}`;
     const updatedReimbursement = { status: 'Approved' };
 
-    fetch(updateUrl, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedReimbursement),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        fetchReimbursements();
-      })
-      .catch((error) => console.log(error));
+    try {
+      await axios.put(updateUrl, updatedReimbursement);
+      fetchReimbursements();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleDeny = (id) => {
+  const handleDeny = async (id) => {
     const deleteUrl = `http://localhost:8080/reimbursements/delete/${id}`;
 
-    fetch(deleteUrl, {
-      method: 'DELETE',
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        fetchReimbursements();
-      })
-      .catch((error) => console.log(error));
+    try {
+      await axios.delete(deleteUrl);
+      fetchReimbursements();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const fetchReimbursements = () => {
-    fetch('http://localhost:8080/reimbursements')
-      .then((res) => res.json())
-      .then((data) => {
-        const pending = data.filter((item) => item.status === 'Pending');
-        const approved = data.filter((item) => item.status === 'Approved');
-        setPendingReimbursements(pending);
-        setApprovedReimbursements(approved);
-      })
-      .catch((error) => console.log(error));
+  const fetchReimbursements = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/reimbursements');
+      const data = response.data;
+      const pending = data.filter((item) => item.status === 'Pending');
+      const approved = data.filter((item) => item.status === 'Approved');
+      setPendingReimbursements(pending);
+      setApprovedReimbursements(approved);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   React.useEffect(() => {

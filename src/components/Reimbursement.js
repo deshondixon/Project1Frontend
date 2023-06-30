@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, Spacer, Text, Container, Grid, Card } from '@nextui-org/react';
 import { Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import axios from 'axios';
 
 export default function Reimbursement() {
   const [description, setDescription] = useState('');
@@ -9,27 +10,26 @@ export default function Reimbursement() {
   const [submissionStatus, setSubmissionStatus] = useState('');
   const [submittedReimbursement, setSubmittedReimbursement] = useState(null);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     const reimbursement = {
       description,
       expenseAmount,
       status: 'Pending',
     };
-    console.log(reimbursement);
 
-    fetch('http://localhost:8080/reimbursements', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(reimbursement),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setSubmittedReimbursement(data);
-        setSubmissionStatus('Successfully submitted!');
-      })
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/reimbursements',
+        reimbursement
+      );
+      const data = response.data;
+      console.log(data);
+      setSubmittedReimbursement(data);
+      setSubmissionStatus('Successfully submitted!');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

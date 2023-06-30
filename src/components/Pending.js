@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table, Spacer, Text, Container } from '@nextui-org/react';
+import axios from 'axios';
 
 export default function Pending() {
   const [pendingReimbursements, setPendingReimbursements] = React.useState([]);
@@ -23,16 +24,17 @@ export default function Pending() {
     },
   ];
 
-  const fetchPendingTickets = () => {
-    fetch('http://localhost:8080/reimbursements')
-      .then((res) => res.json())
-      .then((data) => {
-        const pending = data.filter(
-          (reimbursement) => reimbursement.status.toLowerCase() === 'pending'
-        );
-        setPendingReimbursements(pending);
-      })
-      .catch((error) => console.log(error));
+  const fetchPendingTickets = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/reimbursements');
+      const data = response.data;
+      const pending = data.filter(
+        (reimbursement) => reimbursement.status.toLowerCase() === 'pending'
+      );
+      setPendingReimbursements(pending);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

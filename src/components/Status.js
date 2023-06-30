@@ -10,6 +10,7 @@ import {
 } from '@nextui-org/react';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 export default function Status() {
   const [searchText, setSearchText] = useState('');
@@ -34,22 +35,23 @@ export default function Status() {
     },
   ];
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const searchUrl = `http://localhost:8080/reimbursements?search=${encodeURIComponent(
       searchText
     )}`;
 
-    fetch(searchUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.length > 0) {
-          setApprovedReimbursements(data);
-        } else {
-          setApprovedReimbursements([]);
-        }
-      })
-      .catch((error) => console.log(error));
+    try {
+      const response = await axios.get(searchUrl);
+      const data = response.data;
+      console.log(data);
+      if (data.length > 0) {
+        setApprovedReimbursements(data);
+      } else {
+        setApprovedReimbursements([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
