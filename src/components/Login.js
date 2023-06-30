@@ -6,6 +6,7 @@ import { Text, Container, Grid, Card, Input, Spacer } from '@nextui-org/react';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -30,7 +31,10 @@ export default function Login() {
           navigate('/employee');
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage('Invalid username or password. Please try again.');
+      });
   };
 
   function parseJwt(token) {
@@ -105,6 +109,12 @@ export default function Login() {
                 >
                   Login
                 </Button>
+                <Spacer y={2} />
+                {errorMessage && (
+                  <Text color='#ff0000' align='center'>
+                    {errorMessage}
+                  </Text>
+                )}
               </Card.Body>
             </Card>
           </Container>

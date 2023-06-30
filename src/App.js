@@ -61,8 +61,6 @@ export default function App() {
 
   return (
     <>
-      <Spacer y={2} />
-
       <Grid.Container gap={2} justify='center'>
         <Grid>
           <Container>
@@ -93,7 +91,7 @@ export default function App() {
                     {errorMessage}
                   </Text>
                 )}
-                <Spacer y={2} />
+
                 <Text
                   h1
                   size={30}
