@@ -61,15 +61,18 @@ export default function UpdateStatus() {
     }
   };
 
-  const handleDeny = async (id) => {
+  const handleDeny = (id) => {
     const deleteUrl = `http://localhost:8080/reimbursements/delete/${id}`;
 
-    try {
-      await axios.delete(deleteUrl);
-      fetchReimbursements();
-    } catch (error) {
-      console.log(error);
-    }
+    fetch(deleteUrl, {
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        fetchReimbursements();
+      })
+      .catch((error) => console.log(error));
   };
 
   const fetchReimbursements = async () => {

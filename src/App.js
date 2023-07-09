@@ -26,7 +26,7 @@ export default function App() {
       console.log(data);
       console.log(data.accessToken);
       console.log(parseJwt(data.accessToken));
-      localStorage.setItem('accessToken', data.accessToken); // Store access token in localStorage
+      localStorage.setItem('accessToken', data.accessToken);
       console.log(localStorage.getItem('accessToken'));
       if (parseJwt(data.accessToken).Position === 'Finance Manager') {
         navigate('/finance-manager');
